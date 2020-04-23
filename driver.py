@@ -92,7 +92,6 @@ def process_me(arg, date, my_instance):
     
     if is_first == True:
         time.sleep(5)
-        # is_first = False
         python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["first_search_bar"])))  
     else:
         python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["typical_search_bar"])))
