@@ -21,7 +21,7 @@ error_file = "error_file.csv"
 t1_components = {
     "first_search_bar" : "/html/body/div[3]/div/div/div/div/section/div/div[2]/section/div[2]/div/div/div[1]/div/div/div/div[3]/div[1]/form/input",
     "typical_search_bar" : "/html/body/div[2]/div/div/div/div/div[1]/div[3]/div[1]/form/input",
-    "job_info_clock_icon" : "/html/body/div[6]/div/div/div/div/div/div[2]/div/div[2]/div/section[2]/section[2]/div[2]/div[1]/div[2]/div/div/div/div/div/div[1]/div/span/div/button[2]/span[1]/span",
+    "job_info_clock_icon" : "/html/body/div[6]/div/div/div/div/div/div[2]/div/div[2]/div/section[2]/section[2]/div[2]/div[1]/div[2]/div/div/div/div/div/div[1]/div/span/div/button[2]",
     "job_info_insert_record_icon" : "/html/body/div[3]/div[2]/section/div/div/div/div[1]/div/footer/div/button[1]/span",
     "date_field" : "/html/body/div[3]/div[2]/section/div/div/div/div/section/div[2]/div[2]/div/div/input",
     "event_field" : "/html/body/div[3]/div[2]/section/div/div/div/div/section/div[4]/div/div/div[2]/div/div/div/div[2]/div/div/input",
@@ -46,7 +46,6 @@ prod_components = {
 }
 # ----------------------------------------------------------------------
 
-
 # loads input records ---------------------------------------------------------------------------------------------------
 def load_file():
     try:
@@ -60,8 +59,6 @@ def load_file():
         input("Press Enter to try again.")
         load_file()
 
-
-
 # outputs error file ----------------------------------------------------------------------------------------------------
 def save_error_file():
     with open(error_file, "w", newline="") as resultFile:
@@ -69,12 +66,10 @@ def save_error_file():
         for row in new_list:
                 wr.writerows([row])
 
-
 # login for Production --------------------------------------------------------------------------------------------------
 def login_wait(instance_url):
     d.get(instance_url)     # URL of Successfactors Instance
     input("Press Enter key to continue once you've logged in and EC has finished loading.")
-
 
 """ =============================================================================================================
     Processes records
