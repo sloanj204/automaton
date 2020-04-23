@@ -77,12 +77,13 @@ def login_wait(instance_url):
 
 
 """ =============================================================================================================
-    Processes T1 records
+    Processes records
     (main function to process records. Pulls from target.csv)
 
     PARAMETERS:
-    arg:    Employee ID
-    date:   Date
+    arg:            Employee ID
+    date:           Date
+    my_instance:    flag to specify which instance
     ================================================================================================================
 """
 def process_me(arg, date, my_instance):
@@ -100,13 +101,13 @@ def process_me(arg, date, my_instance):
     time.sleep(3)
     python_button.send_keys(Keys.RETURN)
     python_button.send_keys(Keys.RETURN)
-    time.sleep(7) # lets profile page load
+    time.sleep(9) # lets profile page load
     
     # job info section
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["job_info_clock_icon"])))
     is_first = False
     python_button.click()
-    time.sleep(2) # otherwise clicks the "load more" button 
+    time.sleep(4) # otherwise clicks the "load more" button 
     
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["job_info_insert_record_icon"])))   
     python_button.click()
@@ -122,7 +123,7 @@ def process_me(arg, date, my_instance):
     # event
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["event_field"]))) 
     python_button.send_keys("return")
-    time.sleep(1)
+    time.sleep(2)
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["return_to_work_event"])))  
     python_button.click()
     time.sleep(3)
@@ -130,85 +131,18 @@ def process_me(arg, date, my_instance):
     # event reason
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["event_reason_field"]))) 
     python_button.send_keys("return")
-    time.sleep(1)
+    time.sleep(2)
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["return_to_work_event_reason"]))) 
     python_button.click()
-    time.sleep(1)
+    time.sleep(2)
 
     # save and close
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["save_button"])))  # save button
     python_button.click()
-    time.sleep(4)
+    time.sleep(12) # 4 in T1
     python_button = wait.until(EC.element_to_be_clickable((By.XPATH, my_instance["close_window"])))    # close job info box
     python_button.click()
-    time.sleep(4)
-
-
-""" ==========================================================================================================================
-    Processes Production records
-    (main function to process records. Pulls from target.csv)
-
-    PARAMETERS:
-    arg:    Employee ID
-    date:   Date
-    ===========================================================================================================================
-"""
-def process_prod(arg, date):
-    global is_first # checks if it is the first record in proces. Reason is because there are 2 different search bars. 
-
-    # Main page: go to persons profile
-    if is_first == True:
-        time.sleep(1)
-        is_first = False
-        python_button = d.find_elements_by_xpath("/html/body/div[3]/div/div/div/div/section/div/div[2]/section/div[2]/div/div/div[1]/div/div/div/div[3]/div[1]/form/input")[0]
-    else:
-        python_button = d.find_elements_by_xpath("/html/body/div[2]/div/div/div/div/div[1]/div[3]/div[1]/form/input")[0]
-        time.sleep(1)
-
-    python_button.send_keys(arg)
-    time.sleep(3)
-    python_button.send_keys(Keys.RETURN)
-    python_button.send_keys(Keys.RETURN)
-    time.sleep(9)
-
-    # job info section
-    python_button = d.find_elements_by_xpath("/html/body/div[6]/div/div/div/div/div/div[2]/div/div[2]/div/section[2]/section[2]/div[2]/div[1]/div[2]/div/div/div/div/div/div[1]/div/span/div/button[2]/span/span")[0] # job info section clock icon
-    python_button.click()
-    time.sleep(4)
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div[1]/div/footer/div/button[1]/span")[0]      # insert record
-    python_button.click()
-    time.sleep(4)
-
-    # pick date
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div/section/div[1]/div[2]/div/div/div[1]/input")[0]  # select date box
-    python_button.send_keys(Keys.CONTROL, "a")
-    python_button.send_keys(date)
-    python_button.send_keys(Keys.ENTER)
-    time.sleep(3)
-
-    # event
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div/section/div[3]/div/div/div[2]/div/div/div/div[2]/div/div/div[1]/input")[0]       # textbox
-    python_button.send_keys("Return to Work")
-    time.sleep(2)
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[4]/div/div/div/ul/li[10]")[0]  # return to work event 
-    python_button.click()
-    time.sleep(3)
-
-    # event reason
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div/section/div[3]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/input")[0]  # return to work event reason
-    python_button.send_keys("return")
-    time.sleep(2)
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[6]/div/div/div/div/div/ul/li[4]")[0]    # select event reason
-    python_button.click()
-    time.sleep(2)
-
-    # save and close
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div/footer/div/button[2]/span")[0]    # save button
-    python_button.click()
-    time.sleep(12)
-    python_button = d.find_elements_by_xpath("/html/body/div[3]/div[2]/section/div/div/div/div[2]/div/header/div/div[3]/button")[0]    # close job info box
-    python_button.click()
-    time.sleep(5)
+    time.sleep(5) # 4 in T1
 
 
 # asks user to select instance ===============================================================================================================================
